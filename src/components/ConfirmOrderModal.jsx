@@ -3,7 +3,7 @@ export default function ConfirmOrderModal({ isOpen, onStartNewOrder }) {
 
     return (
             <div className="fixed inset-0 bg-black/50 flex items-end sm:items-center justify-center z-50 sm:p-4">
-                <div className="bg-white rounded-t-3xl sm:rounded-2xl p-6 sm:p-10 w-full max-w-lg shadow-xl animate-fade-in flex flex-col gap-6 max-h-[90vh] overflow-y-auto">
+                <div className="bg-white rounded-t-3xl sm:rounded-2xl p-6 sm:p-10 w-full max-w-lg shadow-xl flex flex-col gap-6 max-h-[90vh] overflow-y-auto">
                 <img 
                 src="/assets/images/icon-order-confirmed.svg" 
                 alt="Order Confirmed Icon" 
@@ -28,7 +28,6 @@ export default function ConfirmOrderModal({ isOpen, onStartNewOrder }) {
                     <span className="font-semibold text-rose-900 text-sm">$7.00</span>
                 </div>
 
-                {/* Item 2 */}
                 <div className="py-3 flex items-center justify-between">
                     <div className="flex items-center gap-4">
                     <img src="/assets/images/image-tiramisu-thumbnail.jpg" alt="Tiramisu" className="w-12 h-12 rounded-lg object-cover" />
@@ -43,7 +42,6 @@ export default function ConfirmOrderModal({ isOpen, onStartNewOrder }) {
                     <span className="font-semibold text-rose-900 text-sm">$5.50</span>
                 </div>
 
-                {/* Item 3 */}
                 <div className="py-3 flex items-center justify-between">
                     <div className="flex items-center gap-4">
                     <img src="/assets/images/image-cake-thumbnail.jpg" alt="Red Velvet Cake" className="w-12 h-12 rounded-lg object-cover" />
