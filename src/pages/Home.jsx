@@ -70,7 +70,6 @@ export default function Home() {
                 <ProductCard 
                   key={dessert.name || index} 
                   dessert={dessert} 
-                  isActive={false}
                 />
               ))}
             </div>
