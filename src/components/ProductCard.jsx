@@ -1,22 +1,24 @@
+import { Link } from 'react-router-dom';
 import QuantityStepper from './QuantityStepper';
 
 export default function ProductCard({ dessert, isActive }) {
   return (
     <article className="flex flex-col gap-4">
       <div className="relative">
-        <picture>
-          <source media="(min-width: 1024px)" srcSet={dessert.image.desktop} />
-          <source media="(min-width: 768px)" srcSet={dessert.image.tablet} />
-          <img 
-            src={dessert.image.mobile} 
-            alt={dessert.name} 
-            className={`w-full rounded-xl transition-all duration-300 ${
-              isActive ? 'border-2 border-red' : 'border-2 border-transparent'
-            }`}
-          />
-        </picture>
+        <Link to={`/product/${dessert.id}`}>
+          <picture>
+            <source media="(min-width: 1024px)" srcSet={dessert.image.desktop} />
+            <source media="(min-width: 768px)" srcSet={dessert.image.tablet} />
+            <img 
+              src={dessert.image.mobile} 
+              alt={dessert.name} 
+              className={`w-full rounded-xl transition-all duration-300 ${
+                isActive ? 'border-2 border-red' : 'border-2 border-transparent'
+              }`}
+            />
+          </picture>
+        </Link>
 
-        {/* Contenedor absoluto centrado en la parte inferior */}
         <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 w-40">
           {isActive ? (
             <QuantityStepper quantity={1} />
@@ -29,10 +31,11 @@ export default function ProductCard({ dessert, isActive }) {
         </div>
       </div>
 
-      {/* Información del producto (margen superior para compensar el botón absoluto) */}
       <div className="mt-4">
         <p className="text-sm text-rose-500">{dessert.category}</p>
-        <h2 className="text-base font-semibold text-rose-900">{dessert.name}</h2>
+        <Link to={`/product/${dessert.id}`} className="hover:underline decoration-red decoration-2">
+          <h2 className="text-base font-semibold text-rose-900">{dessert.name}</h2>
+        </Link>
         <p className="text-red font-semibold">${dessert.price.toFixed(2)}</p>
       </div>
     </article>

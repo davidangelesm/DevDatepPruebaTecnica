@@ -1,5 +1,5 @@
 export default function CartDrawer({onConfirmOrder}) {
-  const isEmpty = false; 
+  const isEmpty = true; 
 
   return (
     <aside className="bg-white p-6 rounded-xl shadow-sm">
@@ -26,36 +26,10 @@ export default function CartDrawer({onConfirmOrder}) {
               <img src="/assets/images/icon-remove-item.svg" alt="Remove item" />
             </button>
           </div>
-          <div className="border-b border-rose-100 py-4 flex justify-between items-center">
-            <div>
-              <p className="font-semibold text-rose-900 text-sm mb-1">Classic Tiramisu</p>
-              <div className="flex gap-4 text-sm">
-                <span className="text-red font-semibold">1x</span>
-                <span className="text-rose-500">@ $5.50</span>
-                <span className="font-semibold text-rose-500">$5.50</span>
-              </div>
-            </div>
-            <button className="w-5 h-5 rounded-full border border-rose-400 flex items-center justify-center hover:border-rose-900 transition-colors">
-              <img src="/assets/images/icon-remove-item.svg" alt="Remove item" />
-            </button>
-          </div>
-          <div className="border-b border-rose-100 py-4 flex justify-between items-center">
-            <div>
-              <p className="font-semibold text-rose-900 text-sm mb-1">Red Velvet Cake</p>
-              <div className="flex gap-4 text-sm">
-                <span className="text-red font-semibold">1x</span>
-                <span className="text-rose-500">@ $4.50</span>
-                <span className="font-semibold text-rose-500">$4.50</span>
-              </div>
-            </div>
-            <button className="w-5 h-5 rounded-full border border-rose-400 flex items-center justify-center hover:border-rose-900 transition-colors">
-              <img src="/assets/images/icon-remove-item.svg" alt="Remove item" />
-            </button>
-          </div>
           
           <div className="flex justify-between items-center py-6">
             <span className="text-rose-900 text-sm">Order Total</span>
-            <span className="font-bold text-2xl text-rose-900">$17.00</span>
+            <span className="font-bold text-2xl text-rose-900">$7.00</span>
           </div>
 
           <div className="bg-rose-50 p-4 rounded-lg flex justify-center items-center gap-2 mb-6 text-sm text-rose-900">
