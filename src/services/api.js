@@ -1,7 +1,9 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://localhost:3000',
+  baseURL: import.meta.env.PROD 
+    ? 'https://api-postres-neoc.onrender.com/' // <-- Pega aquí la URL que te dio Render
+    : 'http://localhost:3000',
 });
 
 export const getProducts = async (search = '', category = '', page = 1) => {
