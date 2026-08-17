@@ -1,40 +1,111 @@
-# Frontend Mentor - Product list with cart
+# Prueba Desserts - E-Commerce & Admin Panel
 
-![Design preview for the Product list with cart coding challenge](./preview.jpg)
+Proyecto de E-Commerce que incluye una vista de cliente con carrito de compras y un panel de administración para gestionar el inventario mediante un CRUD completo.
 
-## Welcome! 👋
+Construido con un stack moderno de React y herramientas de última generación para garantizar un alto rendimiento y escalabilidad.
 
-Thanks for checking out this front-end coding challenge.
+## 🚀 Tecnologías Principales
 
-[Frontend Mentor](https://www.frontendmentor.io) challenges help you improve your coding skills by building realistic projects.
+- **Frontend:** React 19, Vite, TailwindCSS 4, React Router 7
+- **Gestión de Estado (Cliente):** Zustand 5 (con persistencia)
+- **Gestión de Estado (Servidor):** TanStack Query 5 (React Query)
+- **Formularios:** React Hook Form + Zod
+- **Backend Mock:** JSON Server (v1.0.0-beta)
 
-**To do this challenge, you need a good understanding of HTML, CSS and JavaScript.**
+---
 
-## The challenge
+## 💻 Instalación
 
-Your challenge is to build out this product list project that includes a functional cart and get it looking as close to the design as possible.
+Sigue estos pasos para configurar el proyecto en tu entorno local.
 
-You can use any tools you like to help you complete the challenge. So, if you have something you'd like to practice, feel free to give it a go.
+1. Asegúrate de tener [Node.js](https://nodejs.org/) instalado.
 
-We provide the data for the products in a local `data.json` file. So you can use that to populate the UI dynamically if you choose.
+2. Clonar el repositorio o descargar el código fuente desde https://github.com/davidangelesm/DevDatepPruebaTecnica.
 
-Your users should be able to:
+```bash
+git clone https://github.com/davidangelesm/DevDatepPruebaTecnica
+cd DevDatepPruebaTecnica
+```
 
-- Add items to the cart and remove them
-- Increase/decrease the number of items in the cart
-- See an order confirmation modal when they click "Confirm Order"
-- Reset their selections when they click "Start New Order"
-- View the optimal layout for the interface depending on their device's screen size
-- See hover and focus states for all interactive elements on the page
+3. Abre una terminal en la raíz del proyecto y ejecuta el siguiente comando para instalar todas las dependencias:
 
-## Where to find everything
+```bash
+npm install
+```
 
-Your task is to build out the project to the designs inside the `/design` folder. You will find both a mobile and a desktop version of the design.
+---
 
-The designs are in JPG static format. Using JPGs will mean that you'll need to use your best judgment for styles such as `font-size`, `padding` and `margin`.
+## 🛠️ Scripts disponibles
 
-All the required assets for this project are in the `/assets` folder. The images are already exported for the correct screen size and optimized.
+En el directorio del proyecto, puedes ejecutar los siguientes scripts definidos en el `package.json`:
 
-We also include variable and static font files for the required fonts for this project. You can choose to either link to Google Fonts or use the local font files to host the fonts yourself. Note that we've removed the static font files for the font weights that aren't needed for this project.
+- `npm run dev`: Inicia el servidor de desarrollo de Vite (Frontend).
+- `npm run server`: Inicia el backend local (`json-server`) simulando una base de datos con el archivo `db.json` en el puerto 3000.
+- `npm run build`: Construye la aplicación para producción.
+- `npm run preview`: Previsualiza la build de producción localmente.
+- `npm run lint`: Ejecuta ESLint para buscar errores en el código.
 
-There is also a `style-guide.md` file containing the information you'll need, such as color palette and fonts.
+---
+
+## ▶️ Cómo ejecutar el proyecto
+
+Para que la aplicación funcione completamente, necesitas ejecutar tanto el backend (API) como el frontend de forma simultánea.
+
+1. **Inicia la API (Backend):**
+   Abre una terminal y ejecuta:
+
+   ```bash
+   npm run server
+   ```
+
+   _(La API correrá en `http://localhost:3000`)_
+
+2. **Inicia la aplicación (Frontend):**
+   Abre una **segunda** terminal paralela en la misma carpeta y ejecuta:
+   ```bash
+   npm run dev
+   ```
+   _(Vite te proporcionará una URL local `http://localhost:5173`)_
+
+---
+
+## 🏗️ Arquitectura
+
+El código está organizado por funcionalidades bajo el principio de separación de responsabilidades:
+
+- `/components`: Componentes reutilizables de la interfaz de usuario (Cards, Modals, Loaders, Headers).
+- `/pages`: Vistas de nivel superior que actúan como contenedores (Home, AdminProductos, ProductForm, ProductDetails).
+- `/routes`: Gestión del enrutador principal de la aplicación (`AppRouter.jsx`).
+- `/hooks`: Hooks personalizados que abstraen la lógica de TanStack Query, separados inteligentemente en `useProductsQueries` (lecturas) y `useProductsMutations` (escrituras/cambios).
+- `/services`: Configuración de Axios (`api.js`) y centralización de todas las llamadas HTTP.
+- `/schemas`: Esquemas de validación estricta utilizando Zod (ej. `productSchema.js`).
+- `/stores`: Gestión del estado global en el cliente utilizando Zustand (ej. `cartStore.js`).
+
+---
+
+## 🧠 Decisiones Técnicas
+
+- **TanStack Query para mutaciones y caché:** Se decidió separar el estado del servidor del estado de la UI. Al hacer un POST, PUT o DELETE, se utiliza `queryClient.invalidateQueries` para refrescar los datos automáticamente sin necesidad de recargar la página o manejar estados locales complejos.
+- **Zustand con Persistencia:** Para el carrito de compras, Zustand ofreció una alternativa más ligera que Redux. Se implementó el middleware `persist` para guardar el carrito en `localStorage`, garantizando que el usuario no pierda sus productos al refrescar la página.
+- **React Hook Form + Zod:** Se eligió esta combinación para el formulario de productos (reutilizado tanto para Crear como para Editar). Permite validaciones estrictas y previene re-renderizados innecesarios del componente al escribir en los inputs.
+- **Manejo de asincronía en navegación:** Se utilizó `mutateAsync` junto a `react-hot-toast` para garantizar que las notificaciones de éxito se rendericen correctamente antes o durante las redirecciones del administrador.
+
+---
+
+## 🔌 Funcionamiento de la API
+
+La aplicación utiliza `json-server` (versión 1 beta) para simular una API RESTful, configurada con un retraso intencional para poder apreciar los estados de carga (skeletons y spinners) de la UI.
+
+**Base URL:** `http://localhost:3000`
+
+### Endpoints principales:
+
+- **GET `/products`**: Lista los productos.
+  - _Soporta Paginación:_ `_page=1` & `_per_page=8`. (Devuelve el array en `data` y el número de páginas en `pages`).
+  - _Soporta Filtros:_ `category=NombreCategoria`.
+  - _Soporta Búsqueda:_ `name_contains=Texto`.
+- **GET `/products/:id`**: Devuelve los detalles de un producto específico.
+- **POST `/products`**: Crea un nuevo producto (requiere el payload en JSON).
+- **PUT `/products/:id`**: Actualiza un producto existente en su totalidad.
+- **DELETE `/products/:id`**: Elimina un producto de la base de datos simulada.
+- **GET `/categories`**: Devuelve la lista de categorías disponibles para alimentar los filtros y formularios.
