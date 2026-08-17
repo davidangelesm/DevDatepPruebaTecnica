@@ -1,7 +1,15 @@
 import { Link } from 'react-router-dom';
 import QuantityStepper from './QuantityStepper';
+import {useCartStore} from '../stores/cartStore.js';
 
-export default function ProductCard({ dessert, isActive }) {
+export default function ProductCard({ dessert }) {
+
+  const {items, addItem, increaseQuantity, decreaseQuantity} = useCartStore();
+
+  const cartItem = items.find((item) => item.id === dessert.id);
+  const quantity = cartItem ? cartItem.quantity : 0;
+  const isActive = quantity > 0;
+
   return (
     <article className="flex flex-col gap-4">
       <div className="relative">
@@ -21,9 +29,12 @@ export default function ProductCard({ dessert, isActive }) {
 
         <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 w-40">
           {isActive ? (
-            <QuantityStepper quantity={1} />
+            <QuantityStepper 
+            quantity={quantity} 
+            onIncrease={() => increaseQuantity(dessert.id)} 
+            onDecrease={() => decreaseQuantity(dessert.id) } />
           ) : (
-            <button className="w-full bg-white border border-rose-400 rounded-full py-2.5 px-4 flex items-center justify-center gap-2 hover:border-red hover:text-red transition-colors font-semibold text-rose-900 text-sm">
+            <button onClick={() => addItem(dessert)} className="w-full bg-white border border-rose-400 rounded-full py-2.5 px-4 flex items-center justify-center gap-2 hover:border-red hover:text-red transition-colors font-semibold text-rose-900 text-sm">
               <img src="/assets/images/icon-add-to-cart.svg" alt="Add to cart icon" />
               Add to Cart
             </button>
